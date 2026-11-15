@@ -1,0 +1,8 @@
+{
+  "name": "calculator",
+  "private": true,
+  "description": "A small calculator by Niazur Rahman.",
+  "scripts": {
+    "test": "node test/eval.test.js"
+  }
+}
