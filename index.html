@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Calculator · Niazur Rahman</title>
+  <meta name="description" content="A calculator by Niazur Rahman. Ordinary arithmetic, with precedence made visible and every finished line kept on a proof sheet.">
+  <meta name="author" content="Niazur Rahman">
+  <meta name="theme-color" id="themeColor" content="#FAFAF7">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Manrope:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function () {
+      var theme = "light";
+      try {
+        var saved = localStorage.getItem("niaz-calc-theme");
+        if (saved === "light" || saved === "dark") theme = saved;
+        else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+      var meta = document.getElementById("themeColor");
+      if (meta) meta.setAttribute("content", theme === "dark" ? "#12140E" : "#FAFAF7");
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="logo" href="https://www.niazur.me">Niazur<span>.</span></a>
+      <p class="nav-current">Calculator</p>
+      <button type="button" class="theme-btn" id="themeToggle" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <noscript>
+      <p class="noscript">JavaScript is off, so the keys cannot calculate.</p>
+    </noscript>
+
+    <div class="intro">
+      <p class="label">Studio instrument</p>
+      <h1>A calculator that shows its <span class="accent">working.</span></h1>
+      <p class="tagline">Ordinary arithmetic, typed the way you say it. Multiplication and division come first, and every finished line is pinned to the proof sheet.</p>
+    </div>
+
+    <div class="stage">
+      <section class="panel calc" aria-label="Calculator">
+        <div class="display">
+          <p class="expression" id="expression"></p>
+          <p class="reading" id="reading" hidden></p>
+          <p class="value" id="value">0</p>
+        </div>
+        <div class="keys" role="group" aria-label="Keys" aria-describedby="key-help">
+          <button type="button" class="key key-quiet" data-k="clear" aria-label="All clear" aria-keyshortcuts="Escape">AC</button>
+          <button type="button" class="key key-quiet" data-k="back" aria-label="Backspace" aria-keyshortcuts="Backspace">Del</button>
+          <button type="button" class="key key-op" data-k="%" aria-label="Percent" aria-keyshortcuts="%">%</button>
+          <button type="button" class="key key-op" data-k="/" aria-label="Divide" aria-keyshortcuts="/">÷</button>
+
+          <button type="button" class="key" data-k="7">7</button>
+          <button type="button" class="key" data-k="8">8</button>
+          <button type="button" class="key" data-k="9">9</button>
+          <button type="button" class="key key-op" data-k="*" aria-label="Multiply" aria-keyshortcuts="*">×</button>
+
+          <button type="button" class="key" data-k="4">4</button>
+          <button type="button" class="key" data-k="5">5</button>
+          <button type="button" class="key" data-k="6">6</button>
+          <button type="button" class="key key-op" data-k="-" aria-label="Subtract" aria-keyshortcuts="-">−</button>
+
+          <button type="button" class="key" data-k="1">1</button>
+          <button type="button" class="key" data-k="2">2</button>
+          <button type="button" class="key" data-k="3">3</button>
+          <button type="button" class="key key-op" data-k="+" aria-label="Add" aria-keyshortcuts="+">+</button>
+
+          <button type="button" class="key" data-k="sign" aria-label="Toggle sign" aria-keyshortcuts="F9">±</button>
+          <button type="button" class="key" data-k="0">0</button>
+          <button type="button" class="key" data-k="." aria-label="Decimal point" aria-keyshortcuts=".">.</button>
+          <button type="button" class="key key-eq" data-k="eq" aria-label="Equals" aria-keyshortcuts="Enter">=</button>
+        </div>
+        <p class="keyhint" id="key-help">0–9 · + − * / · Enter · Esc · Del · % · F9 ±</p>
+        <p class="sr-only" id="live" aria-live="polite">0</p>
+      </section>
+
+      <section class="panel sheet" aria-labelledby="sheet-title">
+        <div class="sheet-top">
+          <div>
+            <p class="label">Session</p>
+            <h2 id="sheet-title">Proof sheet</h2>
+          </div>
+          <p class="sheet-count" id="sheetCount">00</p>
+        </div>
+        <p class="sheet-note">Finished lines stay here. Pick a result to keep calculating.</p>
+        <div class="tape-wrap">
+          <p class="sheet-empty" id="sheetEmpty">Nothing pinned yet. Press equals and the line will set here, with a note when precedence changes the reading.</p>
+          <ol class="tape" id="tape"></ol>
+        </div>
+        <button type="button" class="text-btn" id="clearTape" hidden>Clear sheet</button>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <a href="https://www.niazur.me">Designed by Niazur Rahman</a>
+      <p class="small">Vancouver, BC</p>
+    </div>
+  </footer>
+
+  <script src="calc.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
